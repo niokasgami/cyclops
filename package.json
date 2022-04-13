@@ -1,0 +1,36 @@
+{
+  "name": "pixi-game-base",
+  "version": "0.1.0",
+  "description": "A base game with pixi.js and typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "dev": "rollup --config rollup.config.ts --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pixi",
+    "game",
+    "base",
+    "rpg"
+  ],
+  "author": "inc0der, nio kasgami",
+  "license": "MIT",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^21.0.3",
+    "pixi.js": "^6.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.2.0",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "http-server": "^14.1.0",
+    "rollup": "^2.70.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3"
+  }
+}

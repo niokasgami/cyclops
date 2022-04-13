@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES6",
+    "outDir": "dist",
+    // Required for PixiJS
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "mini-signals": [
+        "./node_modules/resource-loader/typings/mini-signals.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "src/index.ts"
+  ]
+}
