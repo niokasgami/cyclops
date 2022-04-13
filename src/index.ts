@@ -6,10 +6,10 @@ export default class Game {
   private app: Application;
 
   // eslint-disable-next-line no-use-before-define
-  private game: Game;
+  private static game: Game;
 
   public constructor() {
-    this.app = new Application({ width: 400, height: 400, backgroundColor: 0xFFFFFF });
+    this.app = new Application({ width: 640, height: 480, backgroundColor: 0x000000 });
     document.body.appendChild(this.app.view);
 
     this.app.loader.add('gecko', 'assets/gecko.png');
@@ -19,7 +19,7 @@ export default class Game {
     this.app.loader.load();
   }
 
-  private static getInstance(): Game {
+  public static getInstance(): Game {
     if (!this.game) {
       this.game = new Game();
     }
