@@ -13,6 +13,7 @@ export default {
     typescript({ tsconfig: 'tsconfig.json' }),
     nodeResolve({
       preferBuiltins: true,
+      extensions: ['.js', '.ts'],
     }),
     commonjs(),
   ],
