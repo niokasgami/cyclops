@@ -10,7 +10,7 @@ export default {
     format: 'iife',
   },
   plugins: [
-    typescript(),
+    typescript({ tsconfig: 'tsconfig.json' }),
     nodeResolve({
       preferBuiltins: true,
     }),

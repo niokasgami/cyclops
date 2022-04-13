@@ -1,9 +1,5 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "target": "ES6",
-    "outDir": "dist",
-    // Required for PixiJS
     "esModuleInterop": true,
     "moduleResolution": "node",
     "baseUrl": "./",
