@@ -12,6 +12,10 @@ export default class AssetsLoader {
     systems: 'systems/',
   };
 
+  public static on(event: string, listener: (..._args: any[]) => void) {
+    this.emitter.on(event, listener);
+  }
+
   public static getInstance() {
     return this.loader;
   }
@@ -25,8 +29,9 @@ export default class AssetsLoader {
   }
 
   public static add(filename, directory) {
-    const url = this.rootPath + directory;
-    this.loader.add(filename, url);
+    const url = `${this.rootPath}${directory}/${filename}`;
+    const key = filename.split('.')[0];
+    this.loader.add(key, url);
   }
 
   /**
@@ -35,6 +40,14 @@ export default class AssetsLoader {
   public static load() {
     this.loader.load((loader, resources) => {
       this.emitter.emit('complete', resources);
+    });
+
+    this.loader.onProgress.once((loader, resource) => {
+      this.emitter.emit('progress', loader, resource);
+    });
+
+    this.loader.onError.once((loader, resource) => {
+      this.emitter.emit('error', loader, resource);
     });
   }
 }

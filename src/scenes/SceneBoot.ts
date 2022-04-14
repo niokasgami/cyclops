@@ -1,4 +1,5 @@
 import { Sprite } from 'pixi.js';
+import AssetsLoader from '../core/AssetsLoader';
 import Scene from './Scene';
 
 export default class SceneBoot extends Scene {
@@ -6,18 +7,19 @@ export default class SceneBoot extends Scene {
 
   preload() {
     super.preload();
-    this.game.loader.add('gecko', './assets/pictures/gecko.png');
+    AssetsLoader.add('shroom.png', 'pictures/');
   }
 
   create(resources) {
     super.create(resources);
-    this.logo = new Sprite(resources.gecko.texture);
+    this.logo = new Sprite(resources.shroom.texture);
+    this.logo.anchor.set(0.5);
+    this.logo.x = this.game.renderer.width / 2;
+    this.logo.y = this.game.renderer.height / 2;
     this.addChild(this.logo);
   }
 
-  update() {
-    if (this.logo) {
-      this.logo.rotation += 0.01;
-    }
+  update(dt) {
+    this.logo.rotation += 0.01 * dt;
   }
 }

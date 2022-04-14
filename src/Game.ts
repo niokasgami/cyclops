@@ -1,5 +1,5 @@
 import {
-  Container, Loader, LoaderResource, Renderer, Ticker, utils,
+  Container, LoaderResource, Renderer, Ticker, utils,
 } from 'pixi.js';
 
 import Scene from './scenes/Scene';
@@ -13,8 +13,6 @@ export default class Game extends utils.EventEmitter {
   private ticker: Ticker;
 
   private scene: Scene;
-
-  public loader: Loader;
 
   // eslint-disable-next-line no-use-before-define
   private static instance: Game;
@@ -37,10 +35,9 @@ export default class Game extends utils.EventEmitter {
   }
 
   private setupLoader(): void {
-    this.loader = new Loader();
-    this.loader.onComplete.add(this.onLoadComplete.bind(this));
-    this.loader.onProgress.add(this.onLoadProgress.bind(this));
-    this.loader.onError.add(this.onLoadError.bind(this));
+    AssetLoader.on('complete', this.onLoadComplete.bind(this));
+    AssetLoader.on('progress', this.onLoadProgress.bind(this));
+    AssetLoader.on('error', this.onLoadError.bind(this));
   }
 
   private setupGameLoop(): void {
@@ -66,18 +63,18 @@ export default class Game extends utils.EventEmitter {
   public changeScene(scene: Scene): void {
     this.scene = scene;
     this.scene.preload();
-    this.loader.load();
+    AssetLoader.load();
   }
 
-  private onLoadComplete(loader: Loader, resources: utils.Dict<LoaderResource>): void {
+  private onLoadComplete(resources: utils.Dict<LoaderResource>): void {
     this.emit('loaderComplete', resources);
   }
 
-  private onLoadProgress(loader: Loader, resources: utils.Dict<LoaderResource>): void {
+  private onLoadProgress(resources: utils.Dict<LoaderResource>): void {
     this.emit('loaderProgress', resources);
   }
 
-  private onLoadError(loader: Loader, resources: utils.Dict<LoaderResource>): void {
+  private onLoadError(resources: utils.Dict<LoaderResource>): void {
     this.emit('loaderError', resources);
   }
 }
