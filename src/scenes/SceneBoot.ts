@@ -14,8 +14,8 @@ export default class SceneBoot extends Scene {
     super.create(resources);
     this.logo = new Sprite(resources.shroom.texture);
     this.logo.anchor.set(0.5);
-    this.logo.x = this.game.renderer.width / 2;
-    this.logo.y = this.game.renderer.height / 2;
+    this.logo.x = this.game.width / 2;
+    this.logo.y = this.game.height / 2;
     this.addChild(this.logo);
   }
 

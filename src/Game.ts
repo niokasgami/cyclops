@@ -14,6 +14,10 @@ export default class Game extends utils.EventEmitter {
 
   private scene: Scene;
 
+  public width: number;
+
+  public height: number;
+
   // eslint-disable-next-line no-use-before-define
   private static instance: Game;
 
@@ -25,13 +29,15 @@ export default class Game extends utils.EventEmitter {
   }
 
   private setupRenderer(): void {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+
     this.renderer = new Renderer({
-      width: 640,
-      height: 480,
+      width: this.width,
+      height: this.height,
       backgroundColor: 0x000000,
     });
     document.body.appendChild(this.renderer.view);
-    this.stage = new Container();
   }
 
   private setupLoader(): void {
