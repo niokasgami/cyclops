@@ -6,6 +6,8 @@
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "dev": "rollup --config rollup.config.ts --configPlugin typescript --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
