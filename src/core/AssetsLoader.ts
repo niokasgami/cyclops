@@ -1,39 +1,36 @@
-import {Loader, LoaderResource, utils} from "pixi.js";
+import { Loader, utils } from 'pixi.js';
 
 export default class AssetsLoader {
+  public static rootPath = 'assets/';
 
-    public static rootPath = "assets/";
+  private static loader = new Loader();
 
-    private static _loader = new Loader();
-    private static _emitter = new utils.EventEmitter();
+  private static emitter = new utils.EventEmitter();
 
-    public static readonly PATH = {
-        characters: "characters/",
-        systems: "systems/"
-    };
+  public static readonly PATH = {
+    characters: 'characters/',
+    systems: 'systems/',
+  };
 
+  public static addCharacters(filename: string) {
+    this.add(filename, this.PATH.characters);
+  }
 
-    public static addCharacters(filename: string) {
-        this.add(filename, this.PATH.characters);
-    }
+  public static addSystem(filename: string) {
+    this.add(filename, this.PATH.systems);
+  }
 
-    public static addSystem(filename: string) {
-        this.add(filename, this.PATH.systems);
-    }
+  public static add(filename, directory) {
+    const url = this.rootPath + directory;
+    this.loader.add(filename, url);
+  }
 
-    public static add(filename, directory) {
-        const url = this.rootPath + directory;
-        this._loader.add(filename, url);
-    }
-
-    /**
+  /**
      * will load all the queued images
      */
-    public static load() {
-        this._loader.load((loader,resources) => {
-            this._emitter.emit('complete',resources);
-        });
-    }
-
-
+  public static load() {
+    this.loader.load((loader, resources) => {
+      this.emitter.emit('complete', resources);
+    });
+  }
 }
