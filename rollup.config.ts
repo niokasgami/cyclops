@@ -8,6 +8,7 @@ export default {
   output: {
     file: './dist/game.js',
     format: 'iife',
+    sourcemap: true,
   },
   plugins: [
     typescript({ tsconfig: 'tsconfig.json' }),

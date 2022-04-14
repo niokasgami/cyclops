@@ -10,6 +10,7 @@
       "name": "Launch NWjs",
       "nwjsVersion": "any",
       "webRoot": "${workspaceFolder}/dist",
+      "sourceMaps": true,
       "reloadAfterAttached": true
     }
   ]

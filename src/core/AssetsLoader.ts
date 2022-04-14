@@ -12,6 +12,10 @@ export default class AssetsLoader {
     systems: 'systems/',
   };
 
+  public static getInstance() {
+    return this.loader;
+  }
+
   public static addCharacters(filename: string) {
     this.add(filename, this.PATH.characters);
   }
