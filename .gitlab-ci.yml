@@ -35,6 +35,6 @@ build:
     paths:
     - dist
   only:
-    - master
+    - main
   script:
     - npm run build
