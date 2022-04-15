@@ -22,4 +22,9 @@ export default class SceneBoot extends Scene {
   update(dt) {
     this.logo.rotation += 0.01 * dt;
   }
+
+  resize(width: number, height: number): void {
+    this.logo.x = width / 2;
+    this.logo.y = height / 2;
+  }
 }

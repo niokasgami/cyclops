@@ -19,12 +19,13 @@
   "author": "inc0der, nio kasgami",
   "license": "MIT",
   "dependencies": {
-    "@rollup/plugin-commonjs": "^21.0.3",
     "pixi.js": "^6.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.2.0",
     "@rollup/plugin-typescript": "^8.3.1",
+    "@types/nw.js": "^0.13.14",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",

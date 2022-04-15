@@ -2,6 +2,7 @@ import {
   Container, LoaderResource, Renderer, Ticker, utils,
 } from 'pixi.js';
 
+import Window from './core/Window';
 import Scene from './scenes/Scene';
 import AssetLoader from './core/AssetsLoader';
 
@@ -14,18 +15,25 @@ export default class Game extends utils.EventEmitter {
 
   private scene: Scene;
 
+  private window: Window;
+
   public width: number;
 
   public height: number;
 
-  // eslint-disable-next-line no-use-before-define
   private static instance: Game;
 
   private constructor() {
     super();
+    this.setupWindow();
     this.setupRenderer();
     this.setupLoader();
     this.setupGameLoop();
+  }
+
+  private setupWindow(): void {
+    this.window = Window.getInstance();
+    this.window.on('resize', this.onResize.bind(this));
   }
 
   private setupRenderer(): void {
@@ -36,6 +44,7 @@ export default class Game extends utils.EventEmitter {
       width: this.width,
       height: this.height,
       backgroundColor: 0x000000,
+      view: Window.getInstance().canvas,
     });
     document.body.appendChild(this.renderer.view);
   }
@@ -70,6 +79,15 @@ export default class Game extends utils.EventEmitter {
     this.scene = scene;
     this.scene.preload();
     AssetLoader.load();
+  }
+
+  public onResize(width: number, height: number): void {
+    this.width = width;
+    this.height = height;
+    this.renderer.resize(width, height);
+    if (this.scene) {
+      this.scene.resize(width, height);
+    }
   }
 
   private onLoadComplete(resources: utils.Dict<LoaderResource>): void {

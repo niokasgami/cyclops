@@ -33,4 +33,7 @@ export default class Scene extends Container {
       // }
     }
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  resize(_width: number, _height: number) {}
 }
