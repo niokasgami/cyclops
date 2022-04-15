@@ -1,13 +1,23 @@
 import { Sprite } from 'pixi.js';
 import AssetsLoader from '../core/AssetsLoader';
 import Scene from './Scene';
+import Keyboard from '../core/Input/Keyboard';
+import Key from '../core/Input/Key';
 
 export default class SceneBoot extends Scene {
   logo: Sprite;
 
+  keyboard = new Keyboard();
+
+  leftKey = new Key('ArrowLeft');
+
+  rightKey = new Key('ArrowRight');
+
   preload() {
     super.preload();
     AssetsLoader.add('shroom.png', 'pictures/');
+    this.keyboard.addKey(this.leftKey);
+    this.keyboard.addKey(this.rightKey);
   }
 
   create(resources) {
@@ -20,7 +30,12 @@ export default class SceneBoot extends Scene {
   }
 
   update(dt) {
-    this.logo.rotation += 0.01 * dt;
+    if (this.keyboard.isKeyDown(this.leftKey)) {
+      this.logo.rotation -= 0.02 * dt;
+    }
+    if (this.keyboard.isKeyDown(this.rightKey)) {
+      this.logo.rotation += 0.02 * dt;
+    }
   }
 
   resize(width: number, height: number): void {

@@ -5,6 +5,7 @@ import {
 import Window from './core/Window';
 import Scene from './scenes/Scene';
 import AssetLoader from './core/AssetsLoader';
+import Keyboard from './core/Input/Keyboard';
 
 export default class Game extends utils.EventEmitter {
   private renderer: Renderer;
@@ -21,6 +22,8 @@ export default class Game extends utils.EventEmitter {
 
   public height: number;
 
+  public keyboard: Keyboard = new Keyboard();
+
   private static instance: Game;
 
   private constructor() {
@@ -34,6 +37,8 @@ export default class Game extends utils.EventEmitter {
   private setupWindow(): void {
     this.window = Window.getInstance();
     this.window.on('resize', this.onResize.bind(this));
+    this.window.on('focus', this.onFocus.bind(this));
+    this.window.on('blur', this.onBlur.bind(this));
   }
 
   private setupRenderer(): void {
@@ -88,6 +93,15 @@ export default class Game extends utils.EventEmitter {
     if (this.scene) {
       this.scene.resize(width, height);
     }
+  }
+
+  public onFocus(): void {
+    this.ticker.start();
+  }
+
+  public onBlur(): void {
+    this.ticker.stop();
+    this.keyboard.clear();
   }
 
   private onLoadComplete(resources: utils.Dict<LoaderResource>): void {
