@@ -2,6 +2,23 @@
 import typescript from '@rollup/plugin-typescript';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import uglify from '@lopatnov/rollup-plugin-uglify';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const commonPlugins = [
+  typescript({ tsconfig: 'tsconfig.json' }),
+  nodeResolve({
+    preferBuiltins: true,
+    extensions: ['.js', '.ts'],
+  }),
+  commonjs(),
+];
+
+const prodPlugins = [
+  ...commonPlugins,
+  uglify(),
+];
 
 export default {
   input: 'src/index.ts',
@@ -10,12 +27,5 @@ export default {
     format: 'iife',
     sourcemap: true,
   },
-  plugins: [
-    typescript({ tsconfig: 'tsconfig.json' }),
-    nodeResolve({
-      preferBuiltins: true,
-      extensions: ['.js', '.ts'],
-    }),
-    commonjs(),
-  ],
+  plugins: isProduction ? prodPlugins : commonPlugins,
 };
