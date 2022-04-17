@@ -56,12 +56,12 @@ export default class Keyboard extends utils.EventEmitter {
     return false;
   }
 
-  clear(): void {
+  public clear(): void {
     this.keys.forEach((key) => key.clear());
     this.emit('clear');
   }
 
-  destroy(): void {
+  public destroy(): void {
     window.removeEventListener('keydown', this.keydownHandler);
     window.removeEventListener('keyup', this.keyupHandler);
     this.clear();

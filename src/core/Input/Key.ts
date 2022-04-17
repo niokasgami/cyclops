@@ -17,7 +17,7 @@ export default class Key {
     this.name = key;
   }
 
-  up(event: KeyboardEvent): void {
+  public up(event: KeyboardEvent): void {
     if (!this.isEnabled) {
       return;
     }
@@ -31,7 +31,7 @@ export default class Key {
     this.isUp = true;
   }
 
-  down(event: KeyboardEvent): void {
+  public down(event: KeyboardEvent): void {
     if (!this.isEnabled) {
       return;
     }
@@ -45,7 +45,7 @@ export default class Key {
     this.isUp = false;
   }
 
-  clear(): void {
+  public clear(): void {
     this.isDown = false;
     this.isUp = false;
   }

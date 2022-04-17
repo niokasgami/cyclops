@@ -9,13 +9,13 @@ export default class extends Scene {
 
   public currentMapId: number;
 
-  override preload() {
+  public override preload() {
     super.preload();
     AssetLoader.add('classic_rpg.png', 'tilesets');
     AssetLoader.addMap('map1.json');
   }
 
-  override create(resources) {
+  public override create(resources) {
     super.create(resources);
     const { layers, levels, tilesets } = fullParse('map1', resources);
     const level = levels[0];

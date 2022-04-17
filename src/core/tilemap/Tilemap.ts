@@ -25,13 +25,13 @@ export default class Tilemap extends Container {
     this.createTilemap();
   }
 
-  createTilemap() {
+  private createTilemap() {
     this.tilemap = new CompositeTilemap();
     this.populateTilemap();
     this.addChild(this.tilemap);
   }
 
-  populateTilemap() {
+  private populateTilemap() {
     this.tilemap.clear();
     this.level.layers.reverse().forEach((levelLayer) => {
       const layerDef = this.layers.find((l) => l.id === levelLayer.layerId);

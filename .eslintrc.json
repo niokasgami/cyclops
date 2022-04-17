@@ -23,6 +23,17 @@
         "LabeledStatement",
         "WithStatement"
       ],
+      "@typescript-eslint/explicit-member-accessibility": [
+        "error",
+        {
+          "accessibility": "explicit",
+          "overrides": {
+            "constructors": "no-public",
+            "accessors": "no-public"
+          }
+        }
+      ],
+      
       "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
       "import/no-cycle": ["warn",
         { "maxDepth": 1 }
