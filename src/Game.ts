@@ -82,6 +82,7 @@ export default class Game extends utils.EventEmitter {
 
   public changeScene(scene: Scene): void {
     this.scene = scene;
+    this.scene.game = Game.instance;
     this.scene.preload();
     AssetLoader.load();
   }

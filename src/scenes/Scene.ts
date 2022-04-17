@@ -1,15 +1,10 @@
 import { Container, LoaderResource, utils } from 'pixi.js';
-import Game from '../Game';
+import type Game from '../Game';
 
 export default class Scene extends Container {
   public game: Game;
 
   public isReady: boolean = false;
-
-  constructor() {
-    super();
-    this.game = Game.getInstance();
-  }
 
   preload() {
     this.game.on('loaderComplete', this.create.bind(this));
@@ -19,12 +14,12 @@ export default class Scene extends Container {
   start() {}
 
   // eslint-disable-next-line no-unused-vars, class-methods-use-this
-  create(resources: utils.Dict<LoaderResource>) {
+  create(_resources: utils.Dict<LoaderResource>) {
     this.isReady = true;
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(dt: number): void {
+  update(_dt: number): void {
     for (let i = 0; i < this.children.length; i += 1) {
       // @TODO Create entity class and assign Scene's children property the entity/any type
       // const child = this.children[i];
