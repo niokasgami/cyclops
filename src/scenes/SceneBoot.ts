@@ -1,6 +1,7 @@
 import { Sprite } from 'pixi.js';
 import AssetsLoader from '../core/AssetsLoader';
 import Scene from './Scene';
+import SceneMap from './SceneMap';
 import Keyboard from '../core/Input/Keyboard';
 import Key from '../core/Input/Key';
 
@@ -22,6 +23,7 @@ export default class SceneBoot extends Scene {
 
   create(resources) {
     super.create(resources);
+    this.game.changeScene(new SceneMap());
     this.logo = new Sprite(resources.shroom.texture);
     this.logo.anchor.set(0.5);
     this.logo.x = this.game.width / 2;

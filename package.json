@@ -19,6 +19,7 @@
   "author": "inc0der, nio kasgami",
   "license": "MIT",
   "dependencies": {
+    "@pixi/tilemap": "^3.2.2",
     "pixi.js": "^6.3.0"
   },
   "devDependencies": {

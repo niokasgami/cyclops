@@ -10,6 +10,7 @@ export default class AssetsLoader {
   public static readonly PATH = {
     characters: 'characters/',
     systems: 'systems/',
+    data: 'data/',
   };
 
   public static on(event: string, listener: (..._args: any[]) => void) {
@@ -26,6 +27,10 @@ export default class AssetsLoader {
 
   public static addSystem(filename: string) {
     this.add(filename, this.PATH.systems);
+  }
+
+  public static addMap(filename: string) {
+    this.add(filename, `${this.PATH.data}/maps/`);
   }
 
   public static add(filename, directory) {

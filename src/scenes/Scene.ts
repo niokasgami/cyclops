@@ -7,7 +7,7 @@ export default class Scene extends Container {
   public isReady: boolean = false;
 
   preload() {
-    this.game.on('loaderComplete', this.create.bind(this));
+    this.game.once('loaderComplete', this.create.bind(this));
   }
 
   // eslint-disable-next-line class-methods-use-this
