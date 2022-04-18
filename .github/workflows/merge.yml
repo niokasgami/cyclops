@@ -1,0 +1,24 @@
+name: merge
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Set up node 
+         uses: actions/setup-node@v1
+         with:
+           node-version: '16'
+
+       - name: Install Dependencies
+         run: npm install
+
+       - name: Build
+         run: npm build
+
+       - name: Archive Build
+         uses: actions/upload-artifact@v3
+         with:
+            path: dist
