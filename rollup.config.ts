@@ -23,7 +23,7 @@ const prodPlugins = [
 export default {
   input: 'src/index.ts',
   output: {
-    file: './dist/game.js',
+    file: './dist/cyclops.js',
     format: 'es',
     sourcemap: true,
   },
