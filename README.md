@@ -1,7 +1,6 @@
-# Pixi.js Base Game
+# Cyclops
 
-A base game developed by inc0der and Nio Kasgami for use with a potential RPG game engine
-and future game projects.
+The game framework used by Fable Maker
 
 ## Development
 
@@ -25,7 +24,7 @@ npm run dev
 
 - Test the game
 
-To tes the game your best options is to use vscode or any IDE with a builtin nwjs launch/debugger.
+To test the game your best options is to use vscode or any IDE with a builtin nwjs launch/debugger.
 
 We do have the proper `launch.json` in this repository so if you open up vscode and hit the debug play button, the game will run for you.
 
