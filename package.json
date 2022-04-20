@@ -1,7 +1,7 @@
 {
-  "name": "pixi-game-base",
+  "name": "cyclops",
   "version": "0.1.0",
-  "description": "A base game with pixi.js and typescript",
+  "description": "The core game framework used by Fable Maker",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup --config rollup.config.ts --configPlugin typescript",
