@@ -3,17 +3,24 @@
         "browser": true,
         "es2021": true
     },
-    "extends": [
-        "airbnb-base",
-        "airbnb-typescript/base"
-    ],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "**/tsconfig.json"
-    },
     "plugins": [
         "@typescript-eslint"
     ],
+    "overrides": [
+        {
+          "files": [
+            "bin/*.js",
+            "lib/*.js"
+          ],
+          "extends": [
+            "airbnb-base",
+            "airbnb-typescript/base"
+          ],
+          "parserOptions": {
+            "project": "**/tsconfig.json"
+          }
+    }],
     "settings": {},
     "rules": {
       "linebreak-style": ["error", "windows"],

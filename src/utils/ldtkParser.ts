@@ -16,7 +16,7 @@ function getTexture(filepath: string, resources: utils.Dict<LoaderResource>) {
 }
 
 function parseLevelLayers(levelLayers: Array<any>): Array<ILevelLayer> {
-  const layers = [];
+  const layers: Array<ILevelLayer> = [];
   levelLayers.forEach((layer: any) => {
     layers.push({
       layerId: layer.layerDefUid,
@@ -30,7 +30,7 @@ function parseLevelLayers(levelLayers: Array<any>): Array<ILevelLayer> {
 
 export function parseLevels(data: any) {
   const levels: Array<ILevel> = [];
-  data.levels.forEach((level) => {
+  data.levels.forEach((level: any) => {
     levels.push({
       id: level.uid,
       name: level.identifier,
@@ -46,7 +46,7 @@ export function parseLevels(data: any) {
 
 export function parseLayers(data: any) {
   const layers: Array<ILayer> = [];
-  data.defs.layers.forEach((layer) => {
+  data.defs.layers.forEach((layer: any) => {
     layers.push({
       id: layer.uid,
       name: layer.identifier,
@@ -62,7 +62,7 @@ export function parseLayers(data: any) {
 
 export function parseTilesets(data: any, resources: utils.Dict<LoaderResource>) {
   const tilesets: Array<ITileset> = [];
-  data.defs.tilesets.forEach((tileset) => {
+  data.defs.tilesets.forEach((tileset: any) => {
     tilesets.push({
       id: tileset.uid,
       name: tileset.identifier,

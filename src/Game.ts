@@ -3,9 +3,10 @@ import {
 } from 'pixi.js';
 
 import Window from './core/Window';
-import Scene from './scenes/Scene';
+import { IScene } from './core/scene/IScene';
 import AssetLoader from './core/AssetLoader';
 import Keyboard from './core/Input/Keyboard';
+import SceneLoader from './core/scene/SceneLoader';
 
 export default class Game extends utils.EventEmitter {
   private renderer: Renderer;
@@ -14,13 +15,15 @@ export default class Game extends utils.EventEmitter {
 
   private ticker: Ticker;
 
-  private scene: Scene;
+  private scene: IScene;
 
   private window: Window;
 
   public width: number;
 
   public height: number;
+
+  public sceneLoader: SceneLoader;
 
   public keyboard: Keyboard = new Keyboard();
 
@@ -55,6 +58,9 @@ export default class Game extends utils.EventEmitter {
   }
 
   private setupLoader(): void {
+    this.sceneLoader = new SceneLoader();
+    this.sceneLoader.on('change', this.onChangeScene.bind(this));
+    this.sceneLoader.on('remove', this.onSceneRemove.bind(this));
     AssetLoader.on('complete', this.onLoadComplete.bind(this));
     AssetLoader.on('progress', this.onLoadProgress.bind(this));
     AssetLoader.on('error', this.onLoadError.bind(this));
@@ -80,11 +86,21 @@ export default class Game extends utils.EventEmitter {
     return Game.instance;
   }
 
-  public changeScene(scene: Scene): void {
+  public onChangeScene(scene: IScene, lastScene: IScene): void {
+    if (lastScene) {
+      lastScene.exit();
+    }
     this.scene = scene;
+    if (this.scene.isReady) {
+      return;
+    }
     this.scene.game = Game.instance;
     this.scene.preload();
     AssetLoader.load();
+  }
+
+  public onSceneRemove(_scene: IScene): void {
+    this.scene.exit();
   }
 
   public onResize(width: number, height: number): void {

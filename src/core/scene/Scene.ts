@@ -1,10 +1,15 @@
 import { Container, LoaderResource, utils } from 'pixi.js';
-import type Game from '../Game';
+import { IScene } from './IScene';
+import type Game from '../../Game';
 
-export default class Scene extends Container {
+export default class Scene extends Container implements IScene {
   public game: Game;
 
   public isReady: boolean = false;
+
+  public setName(name: string) {
+    this.name = name;
+  }
 
   public preload() {
     this.game.once('loaderComplete', this.create.bind(this));
@@ -31,4 +36,7 @@ export default class Scene extends Container {
 
   // eslint-disable-next-line class-methods-use-this
   public resize(_width: number, _height: number) {}
+
+  // eslint-disable-next-line class-methods-use-this
+  public exit() {}
 }

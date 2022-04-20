@@ -38,9 +38,13 @@ export default class AssetLoader {
     this.add(filename, `${this.PATH.data}/maps/`);
   }
 
-  public static add(filename, directory) {
+  public static add(filename: string, directory: string) {
     const url = `${this.rootPath}${directory}/${filename}`;
     const key = filename.split('.')[0];
+    if (this.loader.resources[key]) {
+      // @todo the logger should warn about resource already existing
+      return;
+    }
     this.loader.add(key, url);
   }
 
