@@ -4,7 +4,7 @@ import {
 
 import Window from './core/Window';
 import Scene from './scenes/Scene';
-import AssetLoader from './core/AssetsLoader';
+import AssetLoader from './core/AssetLoader';
 import Keyboard from './core/Input/Keyboard';
 
 export default class Game extends utils.EventEmitter {

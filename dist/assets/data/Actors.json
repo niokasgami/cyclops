@@ -1,0 +1,15 @@
+[
+  null,
+  {
+    "name": "Sara",
+    "profile": "a tame cyclops girl!",
+    "sprite": {
+      "filename": "",
+      "index": 0,
+      "fps": 12
+    },
+    "parameters": [
+      {}
+    ]
+  }
+]

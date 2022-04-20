@@ -1,4 +1,4 @@
-import AssetLoader from '../core/AssetsLoader';
+import AssetLoader from '../core/AssetLoader';
 import Scene from './Scene';
 import Tilemap from '../core/tilemap/Tilemap';
 import { ITilemapConfig } from '../core/tilemap/ITilemapConfig';

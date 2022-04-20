@@ -1,7 +1,8 @@
-import { Loader, utils } from 'pixi.js';
+/* eslint-disable comma-dangle */
+import { Loader, LoaderResource, utils } from 'pixi.js';
 
-export default class AssetsLoader {
-  public static rootPath = 'assets/';
+export default class AssetLoader {
+  public static readonly rootPath = 'assets/';
 
   private static loader = new Loader();
 
@@ -19,6 +20,10 @@ export default class AssetsLoader {
 
   public static getInstance() {
     return this.loader;
+  }
+
+  public static get(asset: string): LoaderResource {
+    return this.loader.resources[asset];
   }
 
   public static addCharacters(filename: string) {

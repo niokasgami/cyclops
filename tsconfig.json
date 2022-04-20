@@ -3,13 +3,17 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "baseUrl": "./",
+    "noImplicitOverride": true,
+    "noImplicitAny": true,
     "paths": {
       "mini-signals": [
         "./node_modules/resource-loader/typings/mini-signals.d.ts"
       ]
     },
-    "noImplicitOverride": true,
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "files": [
     "src/index.ts"
   ]
