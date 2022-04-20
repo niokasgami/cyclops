@@ -24,8 +24,9 @@ export default {
   input: 'src/index.ts',
   output: {
     file: './dist/game.js',
-    format: 'iife',
+    format: 'es',
     sourcemap: true,
   },
+  external: ['pixi.js', '@pixi/tilemap'],
   plugins: isProduction ? prodPlugins : commonPlugins,
 };
