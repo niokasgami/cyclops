@@ -1,7 +1,7 @@
 import {
   Container, Point, Rectangle, Sprite, Texture,
 } from 'pixi.js';
-import { DataEntity, SpriteShape } from '../interfaces/database';
+import { DataEntity, SpriteShape } from './IEntityData';
 
 /**
  * the super class that define how an entity is shaped
