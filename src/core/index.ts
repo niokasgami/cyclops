@@ -11,6 +11,7 @@ import { ILayer } from './tilemap';
 import { ITilemapConfig } from './tilemap';
 import { ITileset } from './tilemap';
 import { ITile } from './tilemap';
+import { Mouse } from './Input/Mouse';
 
 export {
   AssetLoader,
@@ -25,5 +26,6 @@ export {
   ILayer,
   ITileset,
   ITile,
-  ITilemapConfig
+  ITilemapConfig,
+  Mouse
 }
