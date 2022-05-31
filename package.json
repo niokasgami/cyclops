@@ -8,8 +8,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch",
-    "bundle": "node ./build.js",
+    "dev": "node ./build.js --watch",
+    "bundle": "tsc && node ./build.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
