@@ -1,4 +1,4 @@
-export default class Key {
+export class Key {
   public name: string;
 
   public isEnabled: boolean = true;

@@ -5,7 +5,7 @@ import {
 import Window from './core/Window';
 import { IScene } from './core/scene/IScene';
 import AssetLoader from './core/AssetLoader';
-import Keyboard from './core/Input/Keyboard';
+import {Keyboard} from './core/Input/Keyboard';
 import SceneLoader from './core/scene/SceneLoader';
 
 export default class Game extends utils.EventEmitter {

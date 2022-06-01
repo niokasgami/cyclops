@@ -1,8 +1,7 @@
 
-import Vector2 from "math/Vector2";
+import { Vector2 } from "../../math";
 import { utils } from "pixi.js";
-
-// @TODO fix the whole system
+import { Button } from "./Button";
 
 /**
  * the class that handle mouse movement and interactions
@@ -10,85 +9,112 @@ import { utils } from "pixi.js";
  */
 export class Mouse extends utils.EventEmitter {
 
-  private buttons = new Map<string, number>();
+  private registry = new Map<string, Button>();
 
   private mousedownHandler: { (event: MouseEvent): void; (this: Window, ev: MouseEvent): void };
   private mouseupHandler: { (event: MouseEvent): void; (this: Window, ev: MouseEvent): void };
-  private mousemoveHandler: {(event: MouseEvent): void; (this: Window, ev: MouseEvent): void}
-  public realTransform = new Vector2(0,0);
-  public transform = new Vector2(0,0);
-  private buttonState = 0;
-  private buttonType: number = null;
+  private mousemoveHandler: { (event: MouseEvent): void; (this: Window, ev: MouseEvent): void }
+  private mousewheelHandler: { (event: MouseEvent): void; (this: Window, ev: MouseEvent): void }
 
-  /** @deprecated will be moved to the mouseKey class */
-  private buttonStruct = {
-    triggered: false,
-    cancelled: false,
-    moved: false,
-    hovered: false,
-    released: false,
-    wheelX: 0,
-    wheelY: 0
-  }
+  /**
+   * the mouse coordinate based on the browser page
+   * @type {Vector2}
+   */
+  public realTransform = new Vector2(0, 0);
+
+  /**
+   * the mouse coordinates based on the visible screen
+   * @type {Vector2}
+   */
+  public transform = new Vector2(0, 0);
+
+  /**
+   * the mouse wheel transform
+   * @type {Vector2}
+   */
+  public wheelTransform = new Vector2(0, 0);
 
   constructor() {
     super();
     this.setupEvents();
   }
 
+  /**
+   * setup the mouse events
+   * @private
+   */
   private setupEvents(): void {
-    this.initMaps();
     this.mousedownHandler = (event: MouseEvent): void => this.onMouseDown(event);
     this.mouseupHandler = (event: MouseEvent): void => this.onMouseUp(event);
     this.mousemoveHandler = (event: MouseEvent): void => this.onMouseMove(event);
-    
+    this.mousewheelHandler = (event: WheelEvent): void => this.onMouseWheel(event);
     window.addEventListener('mousedown', this.mousedownHandler);
     window.addEventListener('mouseup', this.mouseupHandler);
     window.addEventListener('mousemove', this.mousemoveHandler)
+    window.addEventListener('wheel', this.mousewheelHandler);
   }
 
-  public addButton(key: string, value: number) {
-    this.buttons.set(key, value);
+  /**
+   * Will register a new mouse button to the registry
+   * @param {Button} button - the mouse button to register
+   */
+  public addButton(button: Button) {
+    this.registry.set(button.name, button);
   }
 
-  private initMaps() {
-    this.addButton('left', 0);
-    this.addButton('middle', 1);
-    this.addButton('right', 2);
+  /**
+   * return the list of registered mouse button
+   * @returns {Map<string,Button>}
+   */
+  public buttons(): Map<string, Button> {
+    return this.registry;
   }
 
+  /**
+   * return if the button is already registered
+   * @param name - the mouse button name
+   * @returns {boolean}
+   */
+  public has(name: string): boolean {
+    if (this.registry.has(name)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * the function that is called when a button is pressed down
+   * @param {MouseEvent} event - the mouse event to catch
+   * @private
+   */
   private onMouseDown(event: MouseEvent): void {
-    this.buttonState = 1;
-    let key;
-    if (event.button === this.buttons.get('left')) {
-      key = this.buttons.get('left');
+    const buttonName = this.fetchButtonName(event.button);
+    if (this.registry.has(buttonName)) {
+      const button = this.registry.get(buttonName);
+      button.down(event);
+      this.emit('mousedown', button);
     }
-    if (event.button === this.buttons.get('middle')) {
-      key = this.buttons.get('middle');
-    }
-    if (event.button === this.buttons.get('right')) {
-      key = this.buttons.get('right');
-    }
-    this.buttonType = key;
-    this.emit('mousedown', key);
   }
 
+  /**
+   * the function that is called when a button is released
+   * @param {MouseEvent} event - the mouse event to catch
+   * @private
+   */
   private onMouseUp(event: MouseEvent): void {
-    this.buttonState = 0;
-    let key;
-    if (event.button === this.buttons.get('left')) {
-      key = this.buttons.get('left');
+    const buttonName = this.fetchButtonName(event.button);
+    if (this.registry.has(buttonName)) {
+      const button = this.registry.get(buttonName);
+      button.up(event);
+      this.emit('mouseup', button);
     }
-    if (event.button === this.buttons.get('middle')) {
-      key = this.buttons.get('middle');
-    }
-    if (event.button === this.buttons.get('right')) {
-      key = this.buttons.get('right');
-    }
-    this.buttonType = null;
-    this.emit('mouseup', key);
   }
 
+  /**
+   * the function that is called when the mouse is moving
+   * @param {MouseEvent} event - the mouse event to catch
+   * @private
+   */
   private onMouseMove(event: MouseEvent): void {
     this.transform.x = event.clientX;
     this.transform.y = event.clientY;
@@ -97,38 +123,83 @@ export class Mouse extends utils.EventEmitter {
     this.emit('mousemove');
   }
 
-
-  public isMouseDown(): boolean {
-    return this.buttonState === 1;
+  /**
+   * the function that is called when the scroll wheel is used
+   * @param {WheelEvent} event - the wheel event to catch
+   * @private
+   */
+  private onMouseWheel(event: WheelEvent): void {
+    event.preventDefault();
+    this.wheelTransform.x = event.deltaX;
+    this.wheelTransform.y = event.deltaY;
+    this.emit('wheel');
   }
 
-  public isMouseUp(): boolean {
-    return this.buttonState === 0;
+  /**
+   * return wether the button is enabled or not
+   * @param {Button} button - the button to check its state
+   * @returns {boolean}
+   */
+  public isEnabled(button: Button): boolean {
+    if (this.registry.has(button.name)) {
+      return button.isEnabled;
+    }
+    return false;
   }
 
-  public isLeftMousePressed(): boolean {
-    return this.buttonType === this.buttons.get('left') && this.isMouseDown();
+  /**
+   * return wether the button is pressed or not
+   * @param {Button} button - the button to check its state
+   * @returns {boolean}
+   */
+  public isPressed(button: Button): boolean {
+    if (this.registry.has(button.name)) {
+      return button.isDown;
+    }
+    return false;
   }
 
-  public isScrollPressed(): boolean {
-    return this.buttonType === this.buttons.get('middle') && this.isMouseDown();
+  /**
+   * return wether the button is released or not
+   * @param {Button} button - the button to check its state
+   * @returns {boolean}
+   */
+  public isReleased(button: Button): boolean {
+    if (this.registry.has(button.name)) {
+      return button.isDown;
+    }
+    return false;
   }
 
-  public isRightMousePressed() : boolean {
-    return this.buttonType === this.buttons.get('right') && this.isMouseDown();
+  /**
+   * clear all the registered data for the mouse buttons.
+   */
+  public clear() {
+    this.registry.forEach((button) => button.clear());
+    this.emit('clear');
   }
 
-  //
-  public isLeftMouseReleased(): boolean {
-    return this.buttonType === this.buttons.get('left') && this.isMouseUp();
+  /**
+   * destroy the mouse event listener
+   */
+  public destroy() {
+    window.removeEventListener('mousedown', this.mousedownHandler);
+    window.removeEventListener('mouseup', this.mouseupHandler);
+    window.removeEventListener('mousemove', this.mousemoveHandler);
+    window.removeEventListener('wheel', this.mousewheelHandler);
   }
 
-  public isScrollReleased(): boolean {
-    return this.buttonType === this.buttons.get('middle') && this.isMouseUp();
+  /**
+   * return the button name based on it's id
+   * @param {number} id - the button id
+   * @private
+   * @returns {string}
+   */
+  private fetchButtonName(id: number): string {
+    for (const [key, button] of this.registry.entries()) {
+      if (button.id === id) {
+        return key;
+      }
+    }
   }
-
-  public isRightMouseReleased() : boolean {
-    return this.buttonType === this.buttons.get('right') && this.isMouseUp();
-  }
-
 }
