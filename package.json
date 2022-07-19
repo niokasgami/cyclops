@@ -7,6 +7,7 @@
   "bundle": "./bundles/cyclops.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "compile": "npm run build && npm run bundle",
     "build": "tsc",
     "dev": "tsc --watch",
     "bundle": "node ./build.js",

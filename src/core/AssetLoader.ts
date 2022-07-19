@@ -26,6 +26,15 @@ export default class AssetLoader {
     return this.loader.resources[asset];
   }
 
+  /**
+   * load the data of a json
+   * @param asset - the json to load
+   * @returns 
+   */
+  public static getData<T>(asset: string): T {
+    return this.get(asset).data;
+  }
+
   public static addCharacters(filename: string) {
     this.add(filename, this.PATH.characters);
   }

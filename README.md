@@ -1,6 +1,17 @@
 # Cyclops
+The game framework powered by pixijs. 
+The game framework used by Fable Maker.
 
-The game framework used by Fable Maker
+## Features
+- Tilemap support
+- built-in mouse and keyboard support
+- Spacial audio support
+- entity based system
+- built-in collision support
+- Tweening support
+- modularity
+- built-in movement support
+- GUI creation support
 
 ## Development
 
