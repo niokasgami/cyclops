@@ -7,6 +7,7 @@ import { IScene } from './core/scene/IScene';
 import AssetLoader from './core/AssetLoader';
 import {Keyboard} from './core/Input/Keyboard';
 import SceneLoader from './core/scene/SceneLoader';
+import { AudioLoader } from 'core';
 
 export default class Game extends utils.EventEmitter {
   private renderer: Renderer;
@@ -97,6 +98,7 @@ export default class Game extends utils.EventEmitter {
     this.scene.game = Game.instance;
     this.scene.preload();
     AssetLoader.load();
+    AudioLoader.load();
   }
 
   public onSceneRemove(_scene: IScene): void {

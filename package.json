@@ -24,6 +24,7 @@
   "author": "inc0der, nio kasgami",
   "license": "MIT",
   "dependencies": {
+    "@pixi/sound": "^4.2.0",
     "@pixi/tilemap": "^3.2.2",
     "pixi.js": "^6.3.0"
   },
