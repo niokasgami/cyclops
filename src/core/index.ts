@@ -18,7 +18,7 @@ import Button from './Input/Button';
 import { MouseButton } from './Input/Button';
 */
 export * from './Input';
-export * from './SoundLoader';
+
 
 export {
   AssetLoader,

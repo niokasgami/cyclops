@@ -16,7 +16,7 @@ export default class Scene extends Container implements IScene {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public start() {}
+  public start() { }
 
   // eslint-disable-next-line no-unused-vars, class-methods-use-this
   public create(_resources: utils.Dict<LoaderResource>) {
@@ -25,18 +25,23 @@ export default class Scene extends Container implements IScene {
 
   // eslint-disable-next-line no-unused-vars
   public update(_dt: number): void {
+
+    /*
     for (let i = 0; i < this.children.length; i += 1) {
       // @TODO Create entity class and assign Scene's children property the entity/any type
-      // const child = this.children[i];
-      // if (typeof child.update === 'function') {
-      //   child.update(dt);
-      // }
+      const child = this.children[i];
+      //@ts-ignore
+      if (typeof child.update === 'function') {
+        //@ts-ignore
+        child.update(_dt);
+      }
     }
+    */
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public resize(_width: number, _height: number) {}
+  public resize(_width: number, _height: number) { }
 
   // eslint-disable-next-line class-methods-use-this
-  public exit() {}
+  public exit() { }
 }
